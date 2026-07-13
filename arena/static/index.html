@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chess Agents Simulation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Literata:opsz,wght@7..72,600;7..72,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css?v=22" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!--
+    Layout
+    ┌─────────────┬──────────────┬────────────────┐
+    │ Controls    │   Board      │ Chart + Judge  │
+    │ + History   │              │                │
+    └─────────────┴──────────────┴────────────────┘
+  -->
+  <main class="stage">
+    <section class="match">
+      <!-- Left column: setup + live status + move history -->
+      <div class="match-controls">
+        <h1>Chess Agents Simulation</h1>
+        <label>White<select id="white"></select></label>
+        <label>Black<select id="black"></select></label>
+        <label>Judge<select id="judge"></select></label>
+        <label>Max plies<input id="plies" type="number" min="2" max="200" value="40" /></label>
+        <button id="start" type="button">Start match</button>
+        <button id="end" type="button" class="end-btn" hidden>End match</button>
+        <span id="status" class="status">idle</span>
+
+        <div class="history-block">
+          <h2>History</h2>
+          <pre id="history" class="log">—</pre>
+        </div>
+      </div>
+
+      <!-- Center: live chess board (SVG pieces, animated moves) -->
+      <div class="board-panel">
+        <div class="board-frame">
+          <div class="files top" aria-hidden="true"><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span></div>
+          <div class="ranks left" aria-hidden="true"><span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span></div>
+          <div id="board" class="board" aria-label="chess board"></div>
+          <div class="ranks right" aria-hidden="true"><span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span></div>
+          <div class="files bottom" aria-hidden="true"><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span></div>
+        </div>
+      </div>
+
+      <!-- Right column: score chart + judge / live turn details -->
+      <aside class="chart-side">
+        <h2>Move & reasoning quality</h2>
+        <p class="chart-hint">Hover a point to inspect that turn</p>
+        <div class="chart-wrap">
+          <canvas id="chart-quality"></canvas>
+        </div>
+        <div class="judge-block">
+          <h2>Judge</h2>
+          <pre id="judge-out" class="log">—</pre>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="/static/app.js?v=22"></script>
+</body>
+</html>
